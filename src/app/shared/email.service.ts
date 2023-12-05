@@ -7,7 +7,7 @@ import { Contact } from './Model/Contact';
 export class EmailService {
 
   constructor(private http:HttpClient) { }
-   url="http://localhost:3000/send-email"
+   url="https://back-qrdfgmdzy-mouhamedkl.vercel.app/api/v1/emails"
    sendEmail(data:Contact){
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.post<any>(this.url , data);

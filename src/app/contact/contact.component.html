@@ -13,7 +13,7 @@
                 </div>
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-8 col-xl-6">
-                        <form [formGroup]="contactForm" (ngSubmit)="submitForm()">
+                        <form [formGroup]="contactForm" (ngSubmit)="submitForm()" *ngIf="!isLoading">
                             <!-- Nom complet -->
                             <div class="form-floating mb-3">
                                 
@@ -53,14 +53,15 @@
                                     id="phone"
                                     type="tel"
                                     required
-                                    formControlName="phone"
+                                    formControlName="num"
                                     placeholder="(123) 456-7890"
                                     
                                 />
                                 <label for="phone">Numéro de téléphone</label>
-                                <div class="text-danger"  *ngIf="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched" >
-                                    <small *ngIf="contactForm.get('phone')?.errors?.['required']">Un numéro de téléphone est requis.</small>
-                                  
+                                <div class="text-danger"  *ngIf="contactForm.get('num')?.invalid && contactForm.get('num')?.touched" >
+                                    <small *ngIf="contactForm.get('num')?.errors?.['required']">Un numéro de téléphone est requis.</small>
+                                    <small *ngIf="phone?.errors?.['pattern']">Uniquement des chiffres sont autorisés.</small>
+
                                 </div>
                             </div>
                             <!-- Message -->
@@ -90,7 +91,12 @@
                                 </button>
                             </div>
                         </form>
-                      
+                        <div *ngIf="isLoading" class="text-center mb-3">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Chargement...</span>
+                            </div>
+                            <p>Envoi en cours...</p>
+                        </div>
                     </div>
                 </div>
             </div>
